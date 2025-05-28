@@ -8,6 +8,15 @@ Currently it includes an API to return device and app information and utilities 
 
 Add PDDebugKit as a dependency in your Swift Package manifest and import it in your code.
 
+### Getting device information
+
+Call `getDeviceInfo()` from the main actor to retrieve a formatted description of the running app and device:
+
+```swift
+let info = getDeviceInfo()
+print(info)
+```
+
 ### Listing selectors
 
 ```swift
