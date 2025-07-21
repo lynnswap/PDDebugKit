@@ -16,10 +16,12 @@ let package = Package(
             targets: ["PDDebugKit"]),
     ],
     dependencies: [
-        // ★ DeviceKitを追加
         .package(
             url: "https://github.com/devicekit/DeviceKit.git",
             from: "5.5.0"
+        ),
+        .package(url: "https://github.com/kyome22/DeviceModel.git",
+           from: "1.0.0"
         )
     ],
     targets: [
@@ -28,7 +30,8 @@ let package = Package(
         .target(
             name: "PDDebugKit",
             dependencies: [
-                .product(name: "DeviceKit", package: "DeviceKit")
+                .product(name: "DeviceKit", package: "DeviceKit",condition: .when(platforms: [.iOS])),
+                .product(name: "DeviceModel",package: "DeviceModel",condition: .when(platforms: [.macOS]))
             ]
         ),
         .testTarget(

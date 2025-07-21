@@ -1,10 +1,9 @@
 import Foundation
+import SwiftUI
 #if os(iOS)
-import UIKit
 import DeviceKit
-#endif
-#if os(macOS)
-import AppKit
+#elseif os(macOS)
+import DeviceModel
 #endif
 
 /// Returns a string describing the current device and app.
@@ -20,7 +19,7 @@ public func getDeviceInfo() -> String {
         let iosVersion = UIDevice.current.systemVersion
         let screenResolution = "\(Int(UIScreen.main.bounds.width))x\(Int(UIScreen.main.bounds.height))"
 
-        let deviceInfo: String = if let modelID = getMacModelIdentifier() {
+        let deviceInfo: String = if let modelID = sysctlString(for: "hw.model") {
             "/\(modelID)"
         } else {
             ""
@@ -47,7 +46,7 @@ public func getDeviceInfo() -> String {
         let height = Int(mainScreen.frame.height)
         let screenResolution = "\(width)x\(height)"
 
-        let deviceInfo: String = if let modelID = getMacModelIdentifier() {
+        let deviceInfo: String = if let modelID = DeviceModel.current() {
             "/\(modelID)"
         } else {
             ""
@@ -85,9 +84,5 @@ private func sysctlString(for name: String) -> String? {
 
 func getCPUName() -> String? {
     sysctlString(for: "machdep.cpu.brand_string")
-}
-
-func getMacModelIdentifier() -> String? {
-    sysctlString(for: "hw.model")
 }
 

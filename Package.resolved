@@ -1,5 +1,5 @@
 {
-  "originHash" : "89851ee32787a8569cb70378a0367692e36551350813e813cf128c90e38f05aa",
+  "originHash" : "733688be2d6dae6b3aa1cb3b049790be4a5d0df69413ea8f2d0c98b46c0cd009",
   "pins" : [
     {
       "identity" : "devicekit",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "513b9d7e7a1bd46504a1009bbab943b75ce2f195",
         "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "devicemodel",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kyome22/DeviceModel.git",
+      "state" : {
+        "revision" : "c89c0e27447d6db2755d017b7d8af741e2d6ea4a",
+        "version" : "1.0.0"
       }
     }
   ],
