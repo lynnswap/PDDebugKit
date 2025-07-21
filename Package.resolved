@@ -1,13 +1,13 @@
 {
-  "originHash" : "61ac669eb3071b8e4fb2bbc2185dbfa28310ab4bbdb763d8b02f6ca4a9d589e0",
+  "originHash" : "89851ee32787a8569cb70378a0367692e36551350813e813cf128c90e38f05aa",
   "pins" : [
     {
-      "identity" : "devicehardware",
+      "identity" : "devicekit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Shakshi3104/DeviceHardware.git",
+      "location" : "https://github.com/devicekit/DeviceKit.git",
       "state" : {
-        "revision" : "fb40fb994ac5cde749d580197d4d8378a50a18bd",
-        "version" : "3.4.0"
+        "revision" : "513b9d7e7a1bd46504a1009bbab943b75ce2f195",
+        "version" : "5.6.0"
       }
     }
   ],
