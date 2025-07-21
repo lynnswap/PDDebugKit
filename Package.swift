@@ -16,10 +16,9 @@ let package = Package(
             targets: ["PDDebugKit"]),
     ],
     dependencies: [
-        // ★ DeviceKitを追加
         .package(
-            url: "https://github.com/devicekit/DeviceKit.git",
-            from: "5.5.0"
+            url: "https://github.com/Shakshi3104/DeviceHardware.git",
+            from: "3.4.0"
         )
     ],
     targets: [
@@ -28,7 +27,7 @@ let package = Package(
         .target(
             name: "PDDebugKit",
             dependencies: [
-                .product(name: "DeviceKit", package: "DeviceKit")
+                .product(name: "DeviceHardware", package: "DeviceHardware")
             ]
         ),
         .testTarget(

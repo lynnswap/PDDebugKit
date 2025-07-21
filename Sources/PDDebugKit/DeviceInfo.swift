@@ -1,11 +1,6 @@
 import Foundation
-#if os(iOS)
-import UIKit
-import DeviceKit
-#endif
-#if os(macOS)
-import AppKit
-#endif
+import DeviceHardware
+import SwiftUI
 
 /// Returns a string describing the current device and app.
 /// - Returns: formatted string containing app name, version, device info, OS version and screen resolution.
@@ -14,17 +9,13 @@ public func getDeviceInfo() -> String {
     // App information
     let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? "Unknown"
     let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
-
-    #if os(iOS)
+    
+#if os(iOS)
     if ProcessInfo.processInfo.isiOSAppOnMac {
         let iosVersion = UIDevice.current.systemVersion
         let screenResolution = "\(Int(UIScreen.main.bounds.width))x\(Int(UIScreen.main.bounds.height))"
-
-        let deviceInfo: String = if let modelID = getMacModelIdentifier() {
-            "/\(modelID)"
-        } else {
-            ""
-        }
+        
+        let deviceInfo: String = UIDeviceHardware.deviceHardware.modelName
         let cpuInfo: String = if let cpuName = getCPUName() {
             "/\(cpuName)"
         } else {
@@ -32,26 +23,22 @@ public func getDeviceInfo() -> String {
         }
         return "\(appName) \(appVersion)\(deviceInfo)\(cpuInfo)/iOS(on Mac) \(iosVersion)/\(screenResolution)"
     } else {
-        let deviceName = Device.current
+        let deviceName = UIDeviceHardware.deviceHardware.modelName
         let iosVersion = UIDevice.current.systemVersion
         let screenResolution = "\(Int(UIScreen.main.bounds.width))x\(Int(UIScreen.main.bounds.height))"
-
+        
         return "\(appName) \(appVersion)/\(deviceName)/iOS \(iosVersion)/\(screenResolution)"
     }
-    #elseif os(macOS)
+#elseif os(macOS)
     let systemVersion = ProcessInfo.processInfo.operatingSystemVersion
     let osVersionString = "\(systemVersion.majorVersion).\(systemVersion.minorVersion).\(systemVersion.patchVersion)"
-
+    
     if let mainScreen = NSScreen.main {
         let width = Int(mainScreen.frame.width)
         let height = Int(mainScreen.frame.height)
         let screenResolution = "\(width)x\(height)"
-
-        let deviceInfo: String = if let modelID = getMacModelIdentifier() {
-            "/\(modelID)"
-        } else {
-            ""
-        }
+        
+        let deviceInfo: String = UIDeviceHardware.deviceHardware.modelName
         let cpuInfo: String = if let cpuName = getCPUName() {
             "/\(cpuName)"
         } else {
@@ -61,18 +48,10 @@ public func getDeviceInfo() -> String {
     } else {
         return "\(appName) \(appVersion)/Mac/macos \(osVersionString)/UnknownScreen"
     }
-    #else
+#else
     return "\(appName) \(appVersion)"
-    #endif
-}
-
-#if os(iOS)
-extension UIDevice {
-    public var modelName: String {
-        "\(Device.current)"
-    }
-}
 #endif
+}
 
 private func sysctlString(for name: String) -> String? {
     var size = 0
@@ -86,8 +65,3 @@ private func sysctlString(for name: String) -> String? {
 func getCPUName() -> String? {
     sysctlString(for: "machdep.cpu.brand_string")
 }
-
-func getMacModelIdentifier() -> String? {
-    sysctlString(for: "hw.model")
-}
-
