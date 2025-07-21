@@ -46,7 +46,7 @@ public func getDeviceInfo() -> String {
         let height = Int(mainScreen.frame.height)
         let screenResolution = "\(width)x\(height)"
 
-        let deviceInfo: String = if let modelID = DeviceModel.current() {
+        let deviceInfo: String = if let modelID = DeviceModel.current()?.name {
             "/\(modelID)"
         } else {
             ""
