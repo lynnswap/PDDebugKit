@@ -18,7 +18,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/devicekit/DeviceKit.git",
-            from: "5.6.0"
+            from: "5.7.0"
         ),
         .package(url: "https://github.com/kyome22/DeviceModel.git",
            from: "1.0.0"
